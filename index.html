@@ -1006,6 +1006,55 @@
                 gap: 4px !important;
             }
         }
+
+        /* Desktop readability enhancement */
+        @media (min-width: 901px) {
+            #view-schedule .section-title {
+                font-size: 1.55rem;
+                line-height: 1.2;
+                margin-bottom: 24px;
+            }
+
+            #view-schedule .task-list {
+                gap: 14px;
+            }
+
+            #view-schedule .task-card {
+                min-height: 96px;
+                padding-top: 19px;
+                padding-bottom: 19px;
+            }
+
+            #view-schedule .task-title {
+                font-size: 1.32rem;
+                line-height: 1.25;
+                font-weight: 700;
+            }
+
+            #view-schedule .task-time {
+                font-size: 1.02rem;
+                line-height: 1.35;
+                margin-top: 8px;
+                font-weight: 650;
+            }
+
+            #view-schedule .drag-handle {
+                font-size: 23px;
+            }
+
+            #view-schedule .check-btn {
+                width: 34px;
+                height: 34px;
+            }
+
+            body.sidebar-collapsed #view-schedule .task-title {
+                font-size: 1.38rem;
+            }
+
+            body.sidebar-collapsed #view-schedule .task-time {
+                font-size: 1.06rem;
+            }
+        }
 </style>
 </head>
 <body>
