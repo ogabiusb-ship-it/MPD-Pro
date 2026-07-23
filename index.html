@@ -1055,6 +1055,132 @@
                 font-size: 1.06rem;
             }
         }
+
+
+        /* === MOBILE TIMER VISIBILITY & CONTROL FIX === */
+        @media (max-width: 900px) {
+            #view-schedule .active-timer-widget {
+                grid-template-columns: minmax(0, 1fr) 128px !important;
+                grid-template-areas:
+                    "timer-title timer-ring"
+                    "timer-actions timer-ring" !important;
+                min-height: 170px !important;
+                padding: 20px !important;
+                background: #151518 !important;
+                color: #f5f5f7 !important;
+                border-color: rgba(255,255,255,.12) !important;
+            }
+
+            #view-schedule .active-timer-widget #current-task-name {
+                color: #f5f5f7 !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                font-size: 1.18rem !important;
+                font-weight: 750 !important;
+                line-height: 1.28 !important;
+                padding: 0 34px 0 0 !important;
+                text-shadow: none !important;
+            }
+
+            #view-schedule .active-timer-widget .progress-ring-container {
+                width: 124px !important;
+                height: 124px !important;
+            }
+
+            #view-schedule .active-timer-widget .progress-ring-inner {
+                width: 104px !important;
+                height: 104px !important;
+                top: 10px !important;
+                left: 10px !important;
+                background: #f4f7f9 !important;
+            }
+
+            [data-theme="dark"] #view-schedule .active-timer-widget .progress-ring-inner {
+                background: #0a0a0c !important;
+            }
+
+            #view-schedule .active-timer-widget .time-left {
+                color: var(--text-main) !important;
+                font-size: 1.92rem !important;
+                font-weight: 800 !important;
+            }
+
+            #view-schedule .active-timer-widget #timer-subtitle {
+                color: var(--text-muted) !important;
+                opacity: 1 !important;
+                font-size: .62rem !important;
+                font-weight: 800 !important;
+            }
+
+            #view-schedule .active-timer-widget .sound-toggle {
+                top: 13px !important;
+                right: 142px !important;
+                color: rgba(255,255,255,.72) !important;
+            }
+
+            #view-schedule .active-timer-widget .quick-actions {
+                gap: 12px !important;
+            }
+
+            #view-schedule .active-timer-widget .btn-action {
+                min-height: 52px !important;
+                padding: 12px 10px !important;
+                font-size: .92rem !important;
+                border-radius: 15px !important;
+            }
+
+            #floating-sidebar-toggle {
+                width: 58px !important;
+                height: 58px !important;
+                right: 18px !important;
+                bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+                z-index: 2000 !important;
+            }
+
+            #floating-sidebar-toggle .icon {
+                font-size: 30px !important;
+            }
+        }
+
+        @media (max-width: 420px) {
+            #view-schedule .active-timer-widget {
+                grid-template-columns: minmax(0, 1fr) 112px !important;
+                min-height: 158px !important;
+                padding: 16px !important;
+            }
+
+            #view-schedule .active-timer-widget #current-task-name {
+                font-size: 1.02rem !important;
+                padding-right: 26px !important;
+            }
+
+            #view-schedule .active-timer-widget .progress-ring-container {
+                width: 108px !important;
+                height: 108px !important;
+            }
+
+            #view-schedule .active-timer-widget .progress-ring-inner {
+                width: 90px !important;
+                height: 90px !important;
+                top: 9px !important;
+                left: 9px !important;
+            }
+
+            #view-schedule .active-timer-widget .time-left {
+                font-size: 1.58rem !important;
+            }
+
+            #view-schedule .active-timer-widget .sound-toggle {
+                right: 121px !important;
+            }
+
+            #view-schedule .active-timer-widget .btn-action {
+                min-height: 48px !important;
+                font-size: .8rem !important;
+                padding: 10px 6px !important;
+            }
+        }
+
 </style>
 </head>
 <body>
