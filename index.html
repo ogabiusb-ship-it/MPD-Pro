@@ -1247,6 +1247,229 @@
 }
 </style>
 
+
+
+<style>
+/* === AFTER-HOURS / IDLE MODE LAYOUT FIX ===
+   Keep the header visible and centre the FREE timer in the usable workspace. */
+body.idle-mode #universal-header {
+    display: grid !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+}
+
+body.idle-mode #view-schedule {
+    display: block !important;
+    min-height: calc(100dvh - var(--live-header-height, 88px)) !important;
+    padding: 0 !important;
+}
+
+body.idle-mode #view-schedule .dashboard-grid {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-height: calc(100dvh - var(--live-header-height, 88px)) !important;
+    height: auto !important;
+    padding: 32px !important;
+    gap: 0 !important;
+}
+
+body.idle-mode #view-schedule .task-list-section,
+body.idle-mode #view-schedule .quick-actions,
+body.idle-mode #view-schedule #dashboard-banner,
+body.idle-mode #view-schedule #current-task-name {
+    display: none !important;
+}
+
+@media (min-width: 901px) {
+    body.idle-mode #view-schedule .active-timer-widget {
+        position: relative !important;
+        inset: auto !important;
+        right: auto !important;
+        left: auto !important;
+        top: auto !important;
+        width: min(440px, calc(100vw - 360px)) !important;
+        max-width: 440px !important;
+        min-height: 420px !important;
+        max-height: none !important;
+        margin: 0 auto !important;
+        padding: 28px 24px !important;
+        overflow: visible !important;
+        transform: none !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    body.sidebar-collapsed.idle-mode #view-schedule .active-timer-widget {
+        width: min(440px, calc(100vw - 80px)) !important;
+        max-width: 440px !important;
+        padding: 28px 24px !important;
+    }
+
+    body.idle-mode #view-schedule .progress-ring-container {
+        width: 270px !important;
+        height: 270px !important;
+        margin: 0 auto !important;
+    }
+
+    body.idle-mode #view-schedule .progress-ring-inner {
+        width: 238px !important;
+        height: 238px !important;
+        top: 16px !important;
+        left: 16px !important;
+    }
+
+    body.idle-mode #view-schedule .time-left {
+        font-size: 3.65rem !important;
+        line-height: 1 !important;
+    }
+
+    body.idle-mode #view-schedule #timer-subtitle {
+        font-size: 0.9rem !important;
+        letter-spacing: 1.7px !important;
+    }
+
+    body.idle-mode #view-schedule .sound-toggle {
+        top: 6px !important;
+        right: 6px !important;
+    }
+}
+
+@media (max-width: 900px) {
+    body.idle-mode #view-schedule {
+        padding: 0 16px 36px !important;
+    }
+
+    body.idle-mode #view-schedule .dashboard-grid {
+        min-height: calc(100dvh - var(--live-header-height, 126px)) !important;
+        padding: 24px 0 !important;
+    }
+
+    body.idle-mode #view-schedule .active-timer-widget {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        width: min(100%, 430px) !important;
+        min-height: 330px !important;
+        margin: 0 auto !important;
+        padding: 24px 18px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transform: none !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    body.idle-mode #view-schedule .progress-ring-container {
+        width: 230px !important;
+        height: 230px !important;
+        margin: 0 auto !important;
+    }
+
+    body.idle-mode #view-schedule .progress-ring-inner {
+        width: 202px !important;
+        height: 202px !important;
+        top: 14px !important;
+        left: 14px !important;
+    }
+
+    body.idle-mode #view-schedule .time-left {
+        font-size: 3.2rem !important;
+    }
+
+    body.idle-mode #view-schedule .sound-toggle {
+        top: 8px !important;
+        right: 8px !important;
+    }
+}
+</style>
+
+
+<style>
+/* === IDLE TIMER CIRCLE GEOMETRY FIX === */
+body.idle-mode #view-schedule .progress-ring-container {
+    position: relative !important;
+    display: block !important;
+    flex: 0 0 270px !important;
+    width: 270px !important;
+    min-width: 270px !important;
+    max-width: 270px !important;
+    height: 270px !important;
+    min-height: 270px !important;
+    max-height: 270px !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: visible !important;
+}
+
+body.idle-mode #view-schedule .progress-ring {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 270px !important;
+    min-width: 270px !important;
+    max-width: 270px !important;
+    height: 270px !important;
+    min-height: 270px !important;
+    max-height: 270px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    flex: none !important;
+}
+
+body.idle-mode #view-schedule .progress-ring-inner {
+    position: absolute !important;
+    width: 238px !important;
+    min-width: 238px !important;
+    max-width: 238px !important;
+    height: 238px !important;
+    min-height: 238px !important;
+    max-height: 238px !important;
+    aspect-ratio: 1 / 1 !important;
+    top: 16px !important;
+    left: 16px !important;
+    border-radius: 50% !important;
+    flex: none !important;
+}
+
+@media (max-width: 900px) {
+    body.idle-mode #view-schedule .progress-ring-container {
+        flex-basis: 230px !important;
+        width: 230px !important;
+        min-width: 230px !important;
+        max-width: 230px !important;
+        height: 230px !important;
+        min-height: 230px !important;
+        max-height: 230px !important;
+    }
+
+    body.idle-mode #view-schedule .progress-ring {
+        width: 230px !important;
+        min-width: 230px !important;
+        max-width: 230px !important;
+        height: 230px !important;
+        min-height: 230px !important;
+        max-height: 230px !important;
+    }
+
+    body.idle-mode #view-schedule .progress-ring-inner {
+        width: 202px !important;
+        min-width: 202px !important;
+        max-width: 202px !important;
+        height: 202px !important;
+        min-height: 202px !important;
+        max-height: 202px !important;
+        top: 14px !important;
+        left: 14px !important;
+    }
+}
+</style>
+
 </head>
 <body>
 
