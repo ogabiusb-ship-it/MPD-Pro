@@ -1584,7 +1584,32 @@
     function playCompletionSound() { if (!soundEnabled || !audioCtx) return; const playTone = (freq, time, dur) => { const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination); osc.type = 'triangle'; osc.frequency.setValueAtTime(freq, time); gain.gain.setValueAtTime(0.3, time); gain.gain.exponentialRampToValueAtTime(0.001, time + dur); osc.start(time); osc.stop(time + dur); }; const t = audioCtx.currentTime; playTone(523.25, t, 0.2); playTone(659.25, t + 0.1, 0.2); playTone(783.99, t + 0.2, 0.4); playTone(1046.50, t + 0.3, 0.8); }
     
     document.getElementById('todo-date').value = todayStrLocal; document.getElementById('alert-date').value = todayStrLocal; document.getElementById('streak-count').innerText = appData.streak;
-    function saveData() { localStorage.setItem('mpdAppData', JSON.stringify(appData)); document.getElementById('streak-count').innerText = appData.streak; }
+    function saveData() {
+        try {
+            localStorage.setItem('mpdAppData', JSON.stringify(appData));
+            const streakElement = document.getElementById('streak-count');
+            if (streakElement) streakElement.innerText = appData.streak;
+            return true;
+        } catch (error) {
+            console.error('Application data could not be saved:', error);
+            alert('Your changes could not be saved. Please check that browser storage is enabled and that you are not using private browsing mode.');
+            return false;
+        }
+    }
+
+    // Keep the current page synchronised if the same website is open in another tab.
+    window.addEventListener('storage', (event) => {
+        if (event.key !== 'mpdAppData' || !event.newValue) return;
+        appData = loadAppData();
+        document.getElementById('side-plates').checked = appData.doPlates;
+        document.getElementById('streak-count').innerText = appData.streak;
+        renderTodos();
+        renderAlerts();
+        buildSchedule(appData.doPlates, START_MINS, schedule);
+    });
+
+    // Make a final persistence pass when the browser hides or closes the page.
+    window.addEventListener('pagehide', saveData);
     
     function switchTab(viewId, navElement) { 
         document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active-view')); 
@@ -1714,7 +1739,27 @@
         }); 
     }
     
-    function addAlert() { const input = document.getElementById('alert-input').value; const date = document.getElementById('alert-date').value; if (!input || !date) return; appData.alerts.push({ id: Date.now(), text: input, date: date }); document.getElementById('alert-input').value = ''; document.getElementById('alert-input-group').style.display='none'; saveData(); renderAlerts(); syncSettings(); }
+    function addAlert() {
+        const inputElement = document.getElementById('alert-input');
+        const dateElement = document.getElementById('alert-date');
+        const input = inputElement.value.trim();
+        const date = dateElement.value;
+
+        if (!input || !date) return;
+
+        appData.alerts.push({
+            id: Date.now(),
+            text: input,
+            date
+        });
+
+        if (!saveData()) return;
+
+        inputElement.value = '';
+        document.getElementById('alert-input-group').style.display = 'none';
+        renderAlerts();
+        buildSchedule(appData.doPlates, START_MINS, schedule);
+    }
     function deleteAlert(id) { appData.alerts = appData.alerts.filter(a => a.id !== id); saveData(); renderAlerts(); syncSettings(); }
     
     function renderAlerts() { 
