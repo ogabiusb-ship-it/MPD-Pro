@@ -366,9 +366,24 @@
 
 
         /* --- IDLE MODE & ZEN MODE --- */
-        body.idle-mode .task-list-section, body.idle-mode .quick-actions, body.idle-mode #dashboard-banner, body.idle-mode #current-task-name { display: none !important; }
-        body.idle-mode .dashboard-grid { grid-template-columns: 1fr; align-items: center; justify-items: center; height: 60vh; }
-        body.idle-mode .active-timer-widget { border: none; background: transparent; box-shadow: none; transform: scale(1.1); }
+        /* Free-time mode applies only to the Schedule view.
+           Homework Alerts and To-Do remain fully accessible and editable. */
+        body.idle-mode #view-schedule.active-view .task-list-section,
+        body.idle-mode #view-schedule.active-view .quick-actions,
+        body.idle-mode #view-schedule.active-view #dashboard-banner,
+        body.idle-mode #view-schedule.active-view #current-task-name { display: none !important; }
+        body.idle-mode #view-schedule.active-view .dashboard-grid { grid-template-columns: 1fr; align-items: center; justify-items: center; height: 60vh; }
+        body.idle-mode #view-schedule.active-view .active-timer-widget { border: none; background: transparent; box-shadow: none; transform: scale(1.1); }
+
+        /* Explicitly preserve the non-schedule workspaces during free time. */
+        body.idle-mode #view-alerts.active-view,
+        body.idle-mode #view-todo.active-view {
+            display: block !important;
+        }
+        body.idle-mode #view-alerts .input-group,
+        body.idle-mode #view-todo .input-group {
+            visibility: visible;
+        }
 
         body.zen-mode #sidebar { transform: translateX(-100%); margin-right: -290px; }
         body.zen-mode .task-list-section, body.zen-mode header, body.zen-mode #dashboard-banner { display: none; }
@@ -1259,13 +1274,13 @@ body.idle-mode #universal-header {
     z-index: 1000 !important;
 }
 
-body.idle-mode #view-schedule {
+body.idle-mode #view-schedule.active-view {
     display: block !important;
     min-height: calc(100dvh - var(--live-header-height, 88px)) !important;
     padding: 0 !important;
 }
 
-body.idle-mode #view-schedule .dashboard-grid {
+body.idle-mode #view-schedule.active-view .dashboard-grid {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1276,15 +1291,15 @@ body.idle-mode #view-schedule .dashboard-grid {
     gap: 0 !important;
 }
 
-body.idle-mode #view-schedule .task-list-section,
-body.idle-mode #view-schedule .quick-actions,
-body.idle-mode #view-schedule #dashboard-banner,
-body.idle-mode #view-schedule #current-task-name {
+body.idle-mode #view-schedule.active-view .task-list-section,
+body.idle-mode #view-schedule.active-view .quick-actions,
+body.idle-mode #view-schedule.active-view #dashboard-banner,
+body.idle-mode #view-schedule.active-view #current-task-name {
     display: none !important;
 }
 
 @media (min-width: 901px) {
-    body.idle-mode #view-schedule .active-timer-widget {
+    body.idle-mode #view-schedule.active-view .active-timer-widget {
         position: relative !important;
         inset: auto !important;
         right: auto !important;
@@ -1309,46 +1324,46 @@ body.idle-mode #view-schedule #current-task-name {
         padding: 28px 24px !important;
     }
 
-    body.idle-mode #view-schedule .progress-ring-container {
+    body.idle-mode #view-schedule.active-view .progress-ring-container {
         width: 270px !important;
         height: 270px !important;
         margin: 0 auto !important;
     }
 
-    body.idle-mode #view-schedule .progress-ring-inner {
+    body.idle-mode #view-schedule.active-view .progress-ring-inner {
         width: 238px !important;
         height: 238px !important;
         top: 16px !important;
         left: 16px !important;
     }
 
-    body.idle-mode #view-schedule .time-left {
+    body.idle-mode #view-schedule.active-view .time-left {
         font-size: 3.65rem !important;
         line-height: 1 !important;
     }
 
-    body.idle-mode #view-schedule #timer-subtitle {
+    body.idle-mode #view-schedule.active-view #timer-subtitle {
         font-size: 0.9rem !important;
         letter-spacing: 1.7px !important;
     }
 
-    body.idle-mode #view-schedule .sound-toggle {
+    body.idle-mode #view-schedule.active-view .sound-toggle {
         top: 6px !important;
         right: 6px !important;
     }
 }
 
 @media (max-width: 900px) {
-    body.idle-mode #view-schedule {
+    body.idle-mode #view-schedule.active-view {
         padding: 0 16px 36px !important;
     }
 
-    body.idle-mode #view-schedule .dashboard-grid {
+    body.idle-mode #view-schedule.active-view .dashboard-grid {
         min-height: calc(100dvh - var(--live-header-height, 126px)) !important;
         padding: 24px 0 !important;
     }
 
-    body.idle-mode #view-schedule .active-timer-widget {
+    body.idle-mode #view-schedule.active-view .active-timer-widget {
         position: relative !important;
         inset: auto !important;
         top: auto !important;
@@ -1366,24 +1381,24 @@ body.idle-mode #view-schedule #current-task-name {
         box-shadow: none !important;
     }
 
-    body.idle-mode #view-schedule .progress-ring-container {
+    body.idle-mode #view-schedule.active-view .progress-ring-container {
         width: 230px !important;
         height: 230px !important;
         margin: 0 auto !important;
     }
 
-    body.idle-mode #view-schedule .progress-ring-inner {
+    body.idle-mode #view-schedule.active-view .progress-ring-inner {
         width: 202px !important;
         height: 202px !important;
         top: 14px !important;
         left: 14px !important;
     }
 
-    body.idle-mode #view-schedule .time-left {
+    body.idle-mode #view-schedule.active-view .time-left {
         font-size: 3.2rem !important;
     }
 
-    body.idle-mode #view-schedule .sound-toggle {
+    body.idle-mode #view-schedule.active-view .sound-toggle {
         top: 8px !important;
         right: 8px !important;
     }
@@ -1393,7 +1408,7 @@ body.idle-mode #view-schedule #current-task-name {
 
 <style>
 /* === IDLE TIMER CIRCLE GEOMETRY FIX === */
-body.idle-mode #view-schedule .progress-ring-container {
+body.idle-mode #view-schedule.active-view .progress-ring-container {
     position: relative !important;
     display: block !important;
     flex: 0 0 270px !important;
@@ -1407,7 +1422,7 @@ body.idle-mode #view-schedule .progress-ring-container {
     overflow: visible !important;
 }
 
-body.idle-mode #view-schedule .progress-ring {
+body.idle-mode #view-schedule.active-view .progress-ring {
     position: absolute !important;
     inset: 0 !important;
     display: block !important;
@@ -1422,7 +1437,7 @@ body.idle-mode #view-schedule .progress-ring {
     flex: none !important;
 }
 
-body.idle-mode #view-schedule .progress-ring-inner {
+body.idle-mode #view-schedule.active-view .progress-ring-inner {
     position: absolute !important;
     width: 238px !important;
     min-width: 238px !important;
@@ -1438,7 +1453,7 @@ body.idle-mode #view-schedule .progress-ring-inner {
 }
 
 @media (max-width: 900px) {
-    body.idle-mode #view-schedule .progress-ring-container {
+    body.idle-mode #view-schedule.active-view .progress-ring-container {
         flex-basis: 230px !important;
         width: 230px !important;
         min-width: 230px !important;
@@ -1448,7 +1463,7 @@ body.idle-mode #view-schedule .progress-ring-inner {
         max-height: 230px !important;
     }
 
-    body.idle-mode #view-schedule .progress-ring {
+    body.idle-mode #view-schedule.active-view .progress-ring {
         width: 230px !important;
         min-width: 230px !important;
         max-width: 230px !important;
@@ -1457,7 +1472,7 @@ body.idle-mode #view-schedule .progress-ring-inner {
         max-height: 230px !important;
     }
 
-    body.idle-mode #view-schedule .progress-ring-inner {
+    body.idle-mode #view-schedule.active-view .progress-ring-inner {
         width: 202px !important;
         min-width: 202px !important;
         max-width: 202px !important;
